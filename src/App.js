@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./context/PrivateRoutes";
-import Init from "./components/Init";
-import Home from "./components/Home";
-import NavBar from "./components/Navbar";
-import Footer from "./components/Footer";
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import PrivateRoute from './context/PrivateRoutes'
+import Init from './components/Init'
+import Home from './components/Home'
+import NavBar from './components/Navbar'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       </Router>
       <Footer />
     </AuthProvider>
-  );
+  )
 }
 
-export default App;
+export default App
