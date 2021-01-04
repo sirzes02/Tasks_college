@@ -38,14 +38,14 @@ const Init = () => {
   };
 
   return (
-    <div className="Init">
+    <div className="Init container">
       <div className="row my-5">
         <div className="col-8">
           <div className="text-center">
             <img src={logo} className="img-fluid" alt="logo" />
           </div>
         </div>
-        <div className="col-3 align-self-center">
+        <div className="col-4 align-self-center">
           <ul className="nav nav-tabs mr-5" id="myTab" role="tablist">
             <li className="nav-item" role="presentation">
               <a
@@ -55,8 +55,7 @@ const Init = () => {
                 href="#home"
                 role="tab"
                 aria-controls="home"
-                aria-selected="true"
-              >
+                aria-selected="true">
                 Sing in
               </a>
             </li>
@@ -68,8 +67,7 @@ const Init = () => {
                 href="#profile"
                 role="tab"
                 aria-controls="profile"
-                aria-selected="false"
-              >
+                aria-selected="false">
                 Sing up
               </a>
             </li>
@@ -79,16 +77,14 @@ const Init = () => {
               className="tab-pane fade"
               id="home"
               role="tabpanel"
-              aria-labelledby="home-tab"
-            >
+              aria-labelledby="home-tab">
               <Login />
             </div>
             <div
               className="tab-pane fade show active"
               id="profile"
               role="tabpanel"
-              aria-labelledby="profile-tab"
-            >
+              aria-labelledby="profile-tab">
               <Register />
             </div>
           </div>
@@ -98,33 +94,28 @@ const Init = () => {
               <button
                 type="button"
                 className="btn btn btn-outline-primary w-100"
-                onClick={() => socialRegister(googleAuthProvider)}
-              >
+                onClick={() => socialRegister(googleAuthProvider)}>
                 <img
                   src={google}
                   width="20"
                   height="20"
-                  alt="google-logo"
-                ></img>
+                  alt="google-logo"></img>
               </button>
             </div>
             <div className="col-6">
               <button
                 type="button"
                 className="btn btn btn-outline-primary w-100"
-                onClick={() => socialRegister(githubAuthProvider)}
-              >
+                onClick={() => socialRegister(githubAuthProvider)}>
                 <img
                   src={github}
                   width="20"
                   height="20"
-                  alt="github-logo"
-                ></img>
+                  alt="github-logo"></img>
               </button>
             </div>
           </div>
         </div>
-        <div className="col-1" />
       </div>
     </div>
   );

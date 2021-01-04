@@ -34,8 +34,7 @@ function NavBar() {
               <button
                 type="button"
                 class="btn btn-outline-danger"
-                onClick={logOut}
-              >
+                onClick={logOut}>
                 Sign out
               </button>
             </div>
