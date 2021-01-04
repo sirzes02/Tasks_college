@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="footer-dark">
+    <div className="footer-dark position-absolute bottom-0 start-0 end-0">
       <footer>
         <div className="container">
           <div className="row">

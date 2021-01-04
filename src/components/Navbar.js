@@ -24,6 +24,8 @@ import noImage from "../images/photos/no.png";
 function NavBar() {
   const { currentUser } = useContext(AuthContext);
   const [photo, setPhoto] = useState(noImage);
+  const [name, setName] = useState(null);
+
   const photos = [
     img1,
     img2,
@@ -65,6 +67,10 @@ function NavBar() {
             });
           });
       }
+
+      setName(
+        currentUser.displayName ? currentUser.displayName : currentUser.email
+      );
     }
   }, [currentUser]);
 
@@ -86,7 +92,7 @@ function NavBar() {
   const showImage = () => {
     Swal.fire({
       title: "This is you!",
-      text: currentUser.email,
+      text: name,
       imageUrl: photo,
       imageAlt: "profile image",
     });
