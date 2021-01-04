@@ -24,7 +24,7 @@ function NavBar() {
   return (
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand">My Tasks</a>
+        <div className="navbar-brand">My Tasks</div>
         {currentUser && (
           <div className="row">
             <div className="col mt-2">

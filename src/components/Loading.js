@@ -5,7 +5,7 @@ const Loading = () => {
     <div className="Loading">
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand">My Tasks</a>
+          <div className="navbar-brand">My Tasks</div>
         </div>
       </nav>
       <div className="mt-5">
