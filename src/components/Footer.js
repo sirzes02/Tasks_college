@@ -35,7 +35,7 @@ function Footer() {
               </ul>
             </div>
             <div className="col-md-6 item text">
-              <h3>Company Name</h3>
+              <h3>My tasks</h3>
               <p>
                 Praesent sed lobortis mi. Suspendisse vel placerat ligula.
                 Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis
@@ -94,7 +94,7 @@ function Footer() {
               </a>
             </div>
           </div>
-          <p className="copyright">Company Name © 2018</p>
+          <p className="copyright">Tasks college © 2020</p>
         </div>
       </footer>
     </div>

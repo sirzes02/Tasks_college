@@ -1,20 +1,51 @@
 import React, { useContext } from "react";
+import {
+  app,
+  githubAuthProvider,
+  googleAuthProvider,
+} from "../database/firebase";
 import { AuthContext } from "../context/AuthContext";
+import { Redirect } from "react-router-dom";
+import Swal from "sweetalert2";
 import logo from "../images/logo.svg";
+import google from "../images/google.svg";
+import github from "../images/github.svg";
 import Register from "./Register";
+import Login from "./Login";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
 
+  if (currentUser) {
+    return <Redirect to="/home" />;
+  }
+
+  const socialRegister = async (provider) => {
+    await app
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: err,
+        });
+      });
+  };
+
   return (
     <div className="Home">
       <div className="row my-5">
-        <div className="col-md-8">
+        <div className="col-8">
           <div className="text-center">
             <img src={logo} className="img-fluid" alt="logo" />
           </div>
         </div>
-        <div className="col-md-3 align-self-center">
+        <div className="col-3 align-self-center">
           <ul className="nav nav-tabs mr-5" id="myTab" role="tablist">
             <li className="nav-item" role="presentation">
               <a
@@ -50,7 +81,7 @@ const Home = () => {
               role="tabpanel"
               aria-labelledby="home-tab"
             >
-              ...
+              <Login />
             </div>
             <div
               className="tab-pane fade show active"
@@ -61,8 +92,39 @@ const Home = () => {
               <Register />
             </div>
           </div>
+          <hr className="mt-4"></hr>
+          <div className="row">
+            <div className="col-6">
+              <button
+                type="button"
+                className="btn btn btn-outline-primary w-100"
+                onClick={() => socialRegister(googleAuthProvider)}
+              >
+                <img
+                  src={google}
+                  width="20"
+                  height="20"
+                  alt="google-logo"
+                ></img>
+              </button>
+            </div>
+            <div className="col-6">
+              <button
+                type="button"
+                className="btn btn btn-outline-primary w-100"
+                onClick={() => socialRegister(githubAuthProvider)}
+              >
+                <img
+                  src={github}
+                  width="20"
+                  height="20"
+                  alt="github-logo"
+                ></img>
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="col-md-1" />
+        <div className="col-1" />
       </div>
     </div>
   );

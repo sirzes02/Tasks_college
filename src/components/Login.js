@@ -2,31 +2,26 @@ import React, { useState } from "react";
 import { app } from "../database/firebase";
 import Swal from "sweetalert2";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validatePassword, setValidatePassword] = useState("");
-  const [sendEmails, setSendEmails] = useState(false);
-
-  const validate = () => password.length >= 4 && password === validatePassword;
+  const [remember, setRemenber] = useState(false);
 
   const handlerEvent = async (e) => {
     e.preventDefault();
 
-    if (validate()) {
-      await app
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((result) => console.log(result))
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: err,
-          });
+    await app
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => console.log(result))
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: err,
         });
-    }
+      });
   };
 
   return (
@@ -59,34 +54,22 @@ const Register = () => {
           required
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="exampleInputPassword1" className="form-label">
-          Validate Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          value={validatePassword}
-          onChange={(e) => setValidatePassword(e.target.value)}
-          required
-        />
-      </div>
       <div className="mb-3 form-check">
         <input
           type="checkbox"
           className="form-check-input"
-          value={sendEmails}
-          onChange={() => setSendEmails(!sendEmails)}
+          value={remember}
+          onChange={() => setRemenber(!remember)}
         />
         <label className="form-check-label" htmlFor="exampleCheck1">
-          Send me emails
+          Remenber me
         </label>
       </div>
       <button type="submit" className="btn btn-primary">
-        Sign up
+        Sign in
       </button>
     </form>
   );
 };
 
-export default Register;
+export default Login;
