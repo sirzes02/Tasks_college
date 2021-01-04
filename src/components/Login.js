@@ -13,7 +13,6 @@ const Login = () => {
     await app
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((result) => console.log(result))
       .catch((err) => {
         Swal.fire({
           icon: "error",

@@ -56,7 +56,7 @@ const Init = () => {
                 role="tab"
                 aria-controls="home"
                 aria-selected="true">
-                Sing in
+                Sign in
               </a>
             </li>
             <li className="nav-item" role="presentation">
@@ -68,7 +68,7 @@ const Init = () => {
                 role="tab"
                 aria-controls="profile"
                 aria-selected="false">
-                Sing up
+                Sign up
               </a>
             </li>
           </ul>

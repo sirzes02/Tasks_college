@@ -17,7 +17,21 @@ const Register = () => {
       await app
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then((result) => console.log(result))
+        .then(async (result) => {
+          await app
+            .firestore()
+            .collection("user")
+            .doc(result.user.uid)
+            .set({ photo: 5 })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: err,
+              });
+            });
+        })
         .catch((err) => {
           Swal.fire({
             icon: "error",
