@@ -3,26 +3,27 @@ import { app } from "../database/firebase";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 
-import img1 from "../images/photos/64_1.png";
-import img2 from "../images/photos/64_2.png";
-import img3 from "../images/photos/64_3.png";
-import img4 from "../images/photos/64_4.png";
-import img5 from "../images/photos/64_5.png";
-import img6 from "../images/photos/64_6.png";
-import img7 from "../images/photos/64_7.png";
-import img8 from "../images/photos/64_8.png";
-import img9 from "../images/photos/64_9.png";
-import img10 from "../images/photos/64_10.png";
-import img11 from "../images/photos/64_11.png";
-import img12 from "../images/photos/64_12.png";
-import img13 from "../images/photos/64_13.png";
-import img14 from "../images/photos/64_14.png";
-import img15 from "../images/photos/64_15.png";
-import img16 from "../images/photos/64_16.png";
+import img1 from "../images/photos/256_1.png";
+import img2 from "../images/photos/256_2.png";
+import img3 from "../images/photos/256_3.png";
+import img4 from "../images/photos/256_4.png";
+import img5 from "../images/photos/256_5.png";
+import img6 from "../images/photos/256_6.png";
+import img7 from "../images/photos/256_7.png";
+import img8 from "../images/photos/256_8.png";
+import img9 from "../images/photos/256_9.png";
+import img10 from "../images/photos/256_10.png";
+import img11 from "../images/photos/256_11.png";
+import img12 from "../images/photos/256_12.png";
+import img13 from "../images/photos/256_13.png";
+import img14 from "../images/photos/256_14.png";
+import img15 from "../images/photos/256_15.png";
+import img16 from "../images/photos/256_16.png";
+import noImage from "../images/photos/no.png";
 
 function NavBar() {
   const { currentUser } = useContext(AuthContext);
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState(noImage);
   const photos = [
     img1,
     img2,
@@ -82,30 +83,69 @@ function NavBar() {
       );
   };
 
+  const showImage = () => {
+    Swal.fire({
+      title: "This is you!",
+      text: currentUser.email,
+      imageUrl: photo,
+      imageAlt: "profile image",
+    });
+  };
+
   return (
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid">
         <div className="navbar-brand">My Tasks</div>
         {currentUser && (
           <div className="row">
-            <div className="col">
-              <button
-                type="button"
-                className="btn btn-outline-danger"
-                onClick={logOut}>
-                Sign out
-              </button>
-            </div>
-            <div className="col mt-2">
+            <div className="col mt-3">
               <p className="text-light fs-6">{currentUser.email}</p>
             </div>
             <div className="col">
-              <img
-                className="rounded-circle"
-                src={photo}
-                width="40"
-                height="40"
-                alt="profile"></img>
+              <div class="btn-group">
+                <div class="btn-group dropstart" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropstart</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <div class="btn dropdown-item" href="#">
+                        Preferences
+                      </div>
+                    </li>
+                    <li>
+                      <div class="btn dropdown-item" href="#">
+                        About
+                      </div>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <div
+                        class="btn btn-outline-danger dropdown-item boton_cerrar"
+                        onClick={logOut}>
+                        Logout
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onClick={showImage}>
+                  <img
+                    className="rounded-circle"
+                    src={photo}
+                    width="40"
+                    height="40"
+                    alt="profile"></img>
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -75,5 +75,8 @@
     margin-top: 20px;
   }
 }
+.boton_cerrar:active {
+  background-color: #d87a7a;
+}
 
 /*# sourceMappingURL=main.css.map */
