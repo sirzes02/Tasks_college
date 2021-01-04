@@ -75,6 +75,9 @@
     margin-top: 20px;
   }
 }
+.boton_cerrar:hover {
+  background-color: #d87a7a;
+}
 .boton_cerrar:active {
   background-color: #d87a7a;
 }

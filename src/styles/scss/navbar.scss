@@ -1,5 +1,8 @@
 .boton_cerrar {
+  &:hover {
+    background-color: $logout_color;
+  }
   &:active {
-    background-color: rgb(216, 122, 122);
+    background-color: $logout_color;
   }
 }

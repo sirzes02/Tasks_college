@@ -113,14 +113,10 @@ function NavBar() {
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <div class="btn dropdown-item" href="#">
-                        Preferences
-                      </div>
+                      <div class="btn dropdown-item">Preferences</div>
                     </li>
                     <li>
-                      <div class="btn dropdown-item" href="#">
-                        About
-                      </div>
+                      <div class="btn dropdown-item">About</div>
                     </li>
                     <li>
                       <hr class="dropdown-divider" />
