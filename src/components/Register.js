@@ -9,6 +9,7 @@ const Register = () => {
   const [sendEmails, setSendEmails] = useState(false);
 
   const validate = () => password.length >= 4 && password === validatePassword;
+  const random = () => Math.floor(Math.random() * 16);
 
   const handlerEvent = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const Register = () => {
             .firestore()
             .collection("user")
             .doc(result.user.uid)
-            .set({ photo: 5 })
+            .set({ photo: random() })
             .catch((err) => {
               Swal.fire({
                 icon: "error",
