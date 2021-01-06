@@ -30,7 +30,9 @@ const Loading = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="position-absolute bottom-0 start-0 end-0">
+        <Footer />
+      </div>
     </div>
   );
 };
