@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./context/PrivateRoutes";
-import Init from "./components/Init";
+import Init from "./views/Init";
 import Home from "./components/Home";
 import NavBar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Error404 from "./components/Error404";
+import Error404 from "./views/Error404";
 
 function App() {
   return (

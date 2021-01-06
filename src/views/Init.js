@@ -10,8 +10,8 @@ import Swal from "sweetalert2";
 import logo from "../images/logo.svg";
 import google from "../images/google.svg";
 import github from "../images/github.svg";
-import Register from "./Register";
-import Login from "./Login";
+import Register from "../components/Register";
+import Login from "../components/Login";
 
 const Init = () => {
   const { currentUser } = useContext(AuthContext);
