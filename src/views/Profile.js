@@ -41,12 +41,16 @@ const Profile = () => {
       .doc(currentUser.uid)
       .get()
       .then((result) => {
-        console.log(result.data().college);
         setPhoto(photos[result.data().photo] ?? profilePhoto);
-        setAddress(result.data().address);
+        setAddress(result.data().address ?? "-");
         setCollege(result.data().college ?? "College");
-        setMobile(result.data().mobile);
+        setMobile(result.data().mobile ?? "-");
         setLocation(result.data().location ?? "City, Country");
+        setUrl_Github(result.data().github ?? "github");
+        setUrl_Twitter(result.data().twitter ?? "twitter");
+        setUrl_instagram(result.data().instagram ?? "instagram");
+        setUrl_facebook(result.data().facebook ?? "facebook");
+        setUrl_website(result.data().website ?? "website");
       })
       .catch((err) => {
         Swal.fire({
@@ -61,7 +65,7 @@ const Profile = () => {
   const editData = (data, text) => {
     Swal.fire({
       title: `Submit your ${data}`,
-      input: data === "mobile" ? "tel" : "text",
+      input: data === "mobile" ? "tel" : data === "website" ? "url" : "text",
       showCancelButton: true,
       confirmButtonText: "Change",
       showLoaderOnConfirm: true,
@@ -86,6 +90,21 @@ const Profile = () => {
             break;
           case "location":
             setLocation(result.value);
+            break;
+          case "website":
+            setUrl_website(result.value);
+            break;
+          case "github":
+            setUrl_Github(result.value);
+            break;
+          case "twitter":
+            setUrl_Twitter(result.value);
+            break;
+          case "facebook":
+            setUrl_facebook(result.value);
+            break;
+          case "instagram":
+            setUrl_instagram(result.value);
             break;
           default:
             break;
@@ -154,38 +173,77 @@ const Profile = () => {
               <ul className="list-group list-group-flush">
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0 row">
-                    <div className="col-1 mr-1">{web}</div>
+                    <div
+                      className="col-1 mr-1 pointer"
+                      onClick={() => (window.location.href = url_website)}>
+                      {web}
+                    </div>
                     <div className="col">Website</div>
                   </h6>
-                  <span className="text-secondary">https://bootdey.com</span>
+                  <span
+                    className="text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Click to change"
+                    onClick={() => editData("website", url_website)}>
+                    {url_website}
+                  </span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0 row">
                     <div className="col-1 mr-1">{github}</div>
                     <div className="col">Github</div>
                   </h6>
-                  <span className="text-secondary">bootdey</span>
+                  <span
+                    className="text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Click to change"
+                    onClick={() => editData("github", url_github)}>
+                    {url_github}
+                  </span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0 row">
                     <div className="col-1 mr-1">{twitter}</div>
                     <div className="col">Twitter</div>
                   </h6>
-                  <span className="text-secondary">@bootdey</span>
+                  <span
+                    className="text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Click to change"
+                    onClick={() => editData("twitter", url_twitter)}>
+                    @{url_twitter}
+                  </span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0 row">
                     <div className="col-1 mr-1">{instagram}</div>
                     <div className="col">Instagram</div>
                   </h6>
-                  <span className="text-secondary">bootdey</span>
+                  <span
+                    className="text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Click to change"
+                    onClick={() => editData("instagram", url_instagram)}>
+                    {url_instagram}
+                  </span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0 row">
                     <div className="col-1 mr-1">{facebook}</div>
                     <div className="col">Facebook</div>
                   </h6>
-                  <span className="text-secondary">bootdey</span>
+                  <span
+                    className="text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Click to change"
+                    onClick={() => editData("facebook", url_facebook)}>
+                    {url_facebook}
+                  </span>
                 </li>
               </ul>
             </div>

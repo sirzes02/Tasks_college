@@ -25,15 +25,6 @@ const Register = () => {
             .doc(result.user.uid)
             .set({
               photo: random(),
-              website: "http://www.website.com",
-              github: "github",
-              twitter: "@tweeter",
-              instagram: "facebook",
-              facebook: "facebook",
-              mobile: "Mobile",
-              address: "Address",
-              college: "College",
-              location: "City, Country",
             })
             .catch((err) => {
               Swal.fire({
