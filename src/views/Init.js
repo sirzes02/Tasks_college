@@ -24,8 +24,20 @@ const Init = () => {
     await app
       .auth()
       .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result);
+      .then(async (result) => {
+        await app
+          .firestore()
+          .collection("user")
+          .doc(result.user.uid)
+          .set({})
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: err,
+            });
+          });
       })
       .catch((err) => {
         Swal.fire({

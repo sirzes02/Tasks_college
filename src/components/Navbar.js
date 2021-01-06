@@ -19,27 +19,29 @@ function NavBar() {
       if (profilePhoto) {
         setPhoto(profilePhoto);
       } else {
-        app
-          .firestore()
-          .collection("user")
-          .doc(currentUser.uid)
-          .get()
-          .then((result) => setPhoto(photos[result.data().photo]))
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-              footer: err,
-            });
-          });
+        findImage();
       }
 
-      setName(
-        currentUser.displayName ? currentUser.displayName : currentUser.email
-      );
+      setName(currentUser.displayName ?? currentUser.email);
     }
   }, [currentUser]);
+
+  const findImage = async () => {
+    await app
+      .firestore()
+      .collection("user")
+      .doc(currentUser.uid)
+      .get()
+      .then((result) => setPhoto(photos[result.data().photo]))
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: err,
+        });
+      });
+  };
 
   const logOut = async () => {
     await app
@@ -75,32 +77,32 @@ function NavBar() {
               <p className="text-light fs-6">{currentUser.email}</p>
             </div>
             <div className="col">
-              <div class="btn-group">
-                <div class="btn-group dropstart" role="group">
+              <div className="btn-group">
+                <div className="btn-group dropstart" role="group">
                   <button
                     type="button"
-                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                    className="btn btn-secondary dropdown-toggle dropdown-toggle-split"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    <span class="visually-hidden">Toggle Dropstart</span>
+                    <span className="visually-hidden">Toggle Dropstart</span>
                   </button>
-                  <ul class="dropdown-menu">
+                  <ul className="dropdown-menu">
                     <li>
                       <div
-                        class="btn dropdown-item"
+                        className="btn dropdown-item"
                         onClick={() => history.push("profile")}>
                         Preferences
                       </div>
                     </li>
                     <li>
-                      <div class="btn dropdown-item">About</div>
+                      <div className="btn dropdown-item">About</div>
                     </li>
                     <li>
-                      <hr class="dropdown-divider" />
+                      <hr className="dropdown-divider" />
                     </li>
                     <li>
                       <div
-                        class="btn btn-outline-danger dropdown-item boton_cerrar"
+                        className="btn btn-outline-danger dropdown-item boton_cerrar"
                         onClick={logOut}>
                         Logout
                       </div>
@@ -109,7 +111,7 @@ function NavBar() {
                 </div>
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   onClick={showImage}>
                   <img
                     className="rounded-circle"

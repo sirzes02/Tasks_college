@@ -16,33 +16,99 @@ const Profile = () => {
   const { currentUser } = useContext(AuthContext);
   const [photo, setPhoto] = useState(noImage);
   const [name, setName] = useState(null);
+  const [college, setCollege] = useState("-");
+  const [location, setLocation] = useState("-");
+  const [mobile, setMobile] = useState("-");
+  const [address, setAddress] = useState("-");
+  const [url_website, setUrl_website] = useState("-");
+  const [url_github, setUrl_Github] = useState("-");
+  const [url_twitter, setUrl_Twitter] = useState("-");
+  const [url_instagram, setUrl_instagram] = useState("-");
+  const [url_facebook, setUrl_facebook] = useState("-");
 
   useEffect(() => {
     const profilePhoto = currentUser.photoURL;
 
-    if (profilePhoto) {
-      setPhoto(profilePhoto);
-    } else {
-      app
-        .firestore()
-        .collection("user")
-        .doc(currentUser.uid)
-        .get()
-        .then((result) => setPhoto(photos[result.data().photo]))
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: err,
-          });
-        });
-    }
+    findData(profilePhoto);
 
-    setName(
-      currentUser.displayName ? currentUser.displayName : currentUser.email
-    );
-  }, [currentUser]);
+    setName(currentUser.displayName ?? currentUser.email);
+  }, []);
+
+  const findData = async (profilePhoto) => {
+    await app
+      .firestore()
+      .collection("user")
+      .doc(currentUser.uid)
+      .get()
+      .then((result) => {
+        console.log(result.data().college);
+        setPhoto(photos[result.data().photo] ?? profilePhoto);
+        setAddress(result.data().address);
+        setCollege(result.data().college ?? "College");
+        setMobile(result.data().mobile);
+        setLocation(result.data().location ?? "City, Country");
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: err,
+        });
+      });
+  };
+
+  const editData = (data, text) => {
+    Swal.fire({
+      title: `Submit your ${data}`,
+      input: data === "mobile" ? "tel" : "text",
+      showCancelButton: true,
+      confirmButtonText: "Change",
+      showLoaderOnConfirm: true,
+      inputValue: text,
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to write something!";
+        }
+      },
+      preConfirm: (value) => value,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        switch (data) {
+          case "college":
+            setCollege(result.value);
+            break;
+          case "mobile":
+            setMobile(result.value);
+            break;
+          case "address":
+            setAddress(result.value);
+            break;
+          case "location":
+            setLocation(result.value);
+            break;
+          default:
+            break;
+        }
+
+        await app
+          .firestore()
+          .collection("user")
+          .doc(currentUser.uid)
+          .update({
+            [data]: result.value,
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: err,
+            });
+          });
+      }
+    });
+  };
 
   return (
     <div className="container my-5">
@@ -61,19 +127,23 @@ const Profile = () => {
                   <div className="mt-3">
                     <h4>{name}</h4>
                     <div className="row">
-                      <div className="col-1">{pen}</div>
+                      <div
+                        className="col-1 pointer"
+                        onClick={() => editData("college", college)}>
+                        {pen}
+                      </div>
                       <div className="col">
-                        <p className="text-secondary mb-1">
-                          Universidad Santiago de Cali
-                        </p>
+                        <p className="text-secondary mb-1">{college}</p>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-1">{pen}</div>
+                      <div
+                        className="col-1 pointer"
+                        onClick={() => editData("location", location)}>
+                        {pen}
+                      </div>
                       <div className="col">
-                        <p className="text-muted font-size-sm">
-                          Cali, Colombia
-                        </p>
+                        <p className="text-muted font-size-sm">{location}</p>
                       </div>
                     </div>
                   </div>
@@ -138,24 +208,30 @@ const Profile = () => {
                       <div className="col">
                         <h6 className="mb-0">Mobile</h6>
                       </div>
-                      <div className="col-1">{pen}</div>
+                      <div
+                        className="col-1 pointer"
+                        onClick={() => editData("mobile", mobile)}>
+                        {pen}
+                      </div>
                     </div>
                   </div>
-                  <div className="col-sm-9 text-secondary">(320) 380-4539</div>
+                  <div className="col-sm-9 text-secondary">{mobile}</div>
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-sm-3">
                     <div className="row">
                       <div className="col">
-                        <h6 className="mb-0">Adress</h6>
+                        <h6 className="mb-0">Address</h6>
                       </div>
-                      <div className="col-1">{pen}</div>
+                      <div
+                        className="col-1 pointer"
+                        onClick={() => editData("address", address)}>
+                        {pen}
+                      </div>
                     </div>
                   </div>
-                  <div className="col-sm-9 text-secondary">
-                    Bay Area, San Francisco, CA
-                  </div>
+                  <div className="col-sm-9 text-secondary">{address}</div>
                 </div>
               </div>
             </div>
