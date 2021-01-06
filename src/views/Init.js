@@ -6,7 +6,7 @@ import {
 } from "../database/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { Redirect } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Error } from "../resources/Error";
 import logo from "../images/logo.svg";
 import google from "../images/google.svg";
 import github from "../images/github.svg";
@@ -30,23 +30,9 @@ const Init = () => {
           .collection("user")
           .doc(result.user.uid)
           .set({})
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-              footer: err,
-            });
-          });
+          .catch((err) => Error(err));
       })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: err,
-        });
-      });
+      .catch((err) => Error(err));
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { app } from "../database/firebase";
-import Swal from "sweetalert2";
+import { Error } from "../resources/Error";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -26,23 +26,9 @@ const Register = () => {
             .set({
               photo: random(),
             })
-            .catch((err) => {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-                footer: err,
-              });
-            });
+            .catch((err) => Error(err));
         })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: err,
-          });
-        });
+        .catch((err) => Error(err));
     }
   };
 

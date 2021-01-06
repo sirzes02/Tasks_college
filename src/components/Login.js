@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { app } from "../database/firebase";
-import Swal from "sweetalert2";
+import { Error } from "../resources/Error";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,14 +13,7 @@ const Login = () => {
     await app
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: err,
-        });
-      });
+      .catch((err) => Error(err));
   };
 
   return (

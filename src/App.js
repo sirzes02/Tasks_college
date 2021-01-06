@@ -15,8 +15,8 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-          <PrivateRoute path="/home" component={Home} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute exact path="/home" component={Home} />
+          <PrivateRoute exact path="/profile" component={Profile} />
           <Route exact path="/" component={Init} />
           <Route component={Error404} />
         </Switch>

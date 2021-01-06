@@ -3,6 +3,7 @@ import { app } from "../database/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import { photos, noImage } from "../resources/ProfilePhotos";
+import { Error } from "../resources/Error";
 import Swal from "sweetalert2";
 
 function NavBar() {
@@ -33,14 +34,7 @@ function NavBar() {
       .doc(currentUser.uid)
       .get()
       .then((result) => setPhoto(photos[result.data().photo]))
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: err,
-        });
-      });
+      .catch((err) => Error(err));
   };
 
   const logOut = async () => {
@@ -48,14 +42,7 @@ function NavBar() {
       .auth()
       .signOut()
       .then(() => setPhoto(null))
-      .catch((err) =>
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: err,
-        })
-      );
+      .catch((err) => Error(err));
   };
 
   const showImage = () => {
@@ -70,7 +57,11 @@ function NavBar() {
   return (
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid">
-        <div className="navbar-brand">My Tasks</div>
+        <div
+          className="navbar-brand pointer"
+          onClick={() => history.push("home")}>
+          My Tasks
+        </div>
         {currentUser && (
           <div className="row">
             <div className="col mt-3">

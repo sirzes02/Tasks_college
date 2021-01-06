@@ -10,7 +10,9 @@ import {
   web,
   pen,
 } from "../resources/Logos";
+import { Error } from "../resources/Error";
 import Swal from "sweetalert2";
+import Route from "../components/Route";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -32,6 +34,8 @@ const Profile = () => {
     findData(profilePhoto);
 
     setName(currentUser.displayName ?? currentUser.email);
+
+    return;
   }, []);
 
   const findData = async (profilePhoto) => {
@@ -52,14 +56,7 @@ const Profile = () => {
         setUrl_facebook(result.data().facebook ?? "facebook");
         setUrl_website(result.data().website ?? "website");
       })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: err,
-        });
-      });
+      .catch((err) => Error(err));
   };
 
   const editData = (data, text) => {
@@ -117,21 +114,15 @@ const Profile = () => {
           .update({
             [data]: result.value,
           })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-              footer: err,
-            });
-          });
+          .catch((err) => Error(err));
       }
     });
   };
 
   return (
-    <div className="container my-5">
+    <div className="container mb-3">
       <div className="main-body">
+        <Route />
         <div className="row gutters-sm">
           <div className="col-md-4 mb-3">
             <div className="card">
