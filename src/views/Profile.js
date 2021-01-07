@@ -167,7 +167,7 @@ const Profile = () => {
                     <div className="col">Website</div>
                   </h6>
                   <span
-                    className="text-secondary"
+                    className="text-secondary pointer"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Click to change"
@@ -181,7 +181,7 @@ const Profile = () => {
                     <div className="col">Github</div>
                   </h6>
                   <span
-                    className="text-secondary"
+                    className="text-secondary pointer"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Click to change"
@@ -195,7 +195,7 @@ const Profile = () => {
                     <div className="col">Twitter</div>
                   </h6>
                   <span
-                    className="text-secondary"
+                    className="text-secondary pointer"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Click to change"
@@ -209,7 +209,7 @@ const Profile = () => {
                     <div className="col">Instagram</div>
                   </h6>
                   <span
-                    className="text-secondary"
+                    className="text-secondary pointer"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Click to change"
@@ -223,7 +223,7 @@ const Profile = () => {
                     <div className="col">Facebook</div>
                   </h6>
                   <span
-                    className="text-secondary"
+                    className="text-secondary pointer"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Click to change"
