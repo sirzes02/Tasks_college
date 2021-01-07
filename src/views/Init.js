@@ -24,14 +24,7 @@ const Init = () => {
     await app
       .auth()
       .signInWithPopup(provider)
-      .then(async (result) => {
-        await app
-          .firestore()
-          .collection("user")
-          .doc(result.user.uid)
-          .set({})
-          .catch((err) => Error(err));
-      })
+      .then((result) => console.log(result))
       .catch((err) => Error(err));
   };
 

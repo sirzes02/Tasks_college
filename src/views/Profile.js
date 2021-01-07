@@ -14,6 +14,7 @@ import { Error } from "../resources/Error";
 import Swal from "sweetalert2";
 import Route from "../components/Route";
 import Classes from "../components/Classes";
+import ProfileImage from "../components/ProfileImage";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -30,23 +31,21 @@ const Profile = () => {
   const [url_facebook, setUrl_facebook] = useState("-");
 
   useEffect(() => {
-    const profilePhoto = currentUser.photoURL;
-
-    findData(profilePhoto);
+    findData();
 
     setName(currentUser.displayName ?? currentUser.email);
 
     return;
   }, []);
 
-  const findData = async (profilePhoto) => {
+  const findData = async () => {
     await app
       .firestore()
       .collection("user")
       .doc(currentUser.uid)
       .get()
       .then((result) => {
-        setPhoto(photos[result.data().photo] ?? profilePhoto);
+        setPhoto(photos[result.data().photo] ?? currentUser.photoURL);
         setAddress(result.data().address ?? "-");
         setCollege(result.data().college ?? "College");
         setMobile(result.data().mobile ?? "-");
@@ -68,11 +67,8 @@ const Profile = () => {
       confirmButtonText: "Change",
       showLoaderOnConfirm: true,
       inputValue: text,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      },
+      inputValidator: (value) =>
+        !value ? "You need to write something!" : null,
       preConfirm: (value) => value,
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -122,18 +118,16 @@ const Profile = () => {
 
   return (
     <div className="container mb-3">
+      <Route />
       <div className="main-body">
-        <Route />
         <div className="row gutters-sm">
           <div className="col-md-4 mb-3">
             <div className="card">
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
-                  <img
-                    src={photo}
-                    alt="user"
-                    className="rounded-circle"
-                    width={150}
+                  <ProfileImage
+                    photo={photo}
+                    service={currentUser.photoURL ?? false}
                   />
                   <div className="mt-3">
                     <h4>{name}</h4>
