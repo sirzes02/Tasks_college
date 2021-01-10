@@ -93,6 +93,16 @@ function NavBar() {
                     </li>
                     <li>
                       <div
+                        className="btn dropdown-item"
+                        onClick={() => history.push("new_class")}>
+                        Create Class
+                      </div>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <div
                         className="btn btn-outline-danger dropdown-item boton_cerrar"
                         onClick={logOut}>
                         Logout
