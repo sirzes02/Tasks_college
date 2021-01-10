@@ -3,6 +3,7 @@ import { app } from "../database/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { Error } from "../resources/Error";
 import Vacio from "../components/Vacio";
+import Class from "../components/Class";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
@@ -21,9 +22,7 @@ const Home = () => {
       .where("id_usuario", "==", currentUser.uid)
       .get()
       .then((result) => {
-        if (result.empty) {
-          console.log("No matching documents.");
-        } else {
+        if (!result.empty) {
           setClasses(result.docs);
           setEmpty(false);
         }
@@ -32,15 +31,17 @@ const Home = () => {
   };
 
   return (
-    <div className="Home">
+    <div className="Home container my-3">
       {empty ? (
         <Vacio />
       ) : (
-        classes.map((data) => (
-          <p>
-            {data.data().name}, {data.data().time}
-          </p>
-        ))
+        <div className="row">
+          {classes.map((data) => (
+            <div className="col-sm mt-1" key={data.id}>
+              <Class data={data.data()} />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

@@ -4,7 +4,7 @@ const Vacio = () => {
   const history = useHistory();
 
   return (
-    <div className="Vacio m-5">
+    <div className="Vacio my-5">
       <div className="card text-center">
         <div className="card-header">Is empty</div>
         <div className="card-body">
