@@ -33,7 +33,9 @@ const Home = () => {
   return (
     <div className="Home container my-3">
       {empty ? (
-        <Vacio />
+        <div className="my-5">
+          <Vacio />
+        </div>
       ) : (
         <div className="row">
           {classes.map((data) => (

@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import Route from "../components/Route";
 import Classes from "../components/Classes";
 import ProfileImage from "../components/ProfileImage";
+import Vacio from "../components/Vacio";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -29,6 +30,8 @@ const Profile = () => {
   const [url_twitter, setUrl_Twitter] = useState("-");
   const [url_instagram, setUrl_instagram] = useState("-");
   const [url_facebook, setUrl_facebook] = useState("-");
+  const [classes, setClasses] = useState([]);
+  const [empty, setEmpty] = useState(true);
 
   useEffect(() => {
     findData();
@@ -55,6 +58,19 @@ const Profile = () => {
         setUrl_instagram(result.data().instagram ?? "instagram");
         setUrl_facebook(result.data().facebook ?? "facebook");
         setUrl_website(result.data().website ?? "website");
+      })
+      .catch((err) => Error(err));
+
+    await app
+      .firestore()
+      .collection("class")
+      .where("id_usuario", "==", currentUser.uid)
+      .get()
+      .then((result) => {
+        if (!result.empty) {
+          setClasses(result.docs);
+          setEmpty(false);
+        }
       })
       .catch((err) => Error(err));
   };
@@ -279,7 +295,27 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <Classes />
+            <div className="gutters-sm">
+              <div className="mb-3">
+                <div className="card h-100">
+                  <div className="card-body">
+                    <h6 className="d-flex align-items-center mb-3">
+                      <i className="material-icons text-info mr-2">Current</i> -
+                      classes
+                    </h6>
+                    {empty ? (
+                      <Vacio />
+                    ) : (
+                      <div className="overflow-auto">
+                        {classes.map((data) => (
+                          <Classes key={data.id} data={data.data()} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
